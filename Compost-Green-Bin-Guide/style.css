@@ -1,0 +1,167 @@
+html {
+  height: 100%;
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 14pt;
+}
+
+h2 {
+  font-size: 36pt;
+}
+
+p {
+  line-height: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/* NAV BAR */
+
+.nav {
+  position: sticky;
+  list-style-type: none;
+  background-color: white;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 10px;
+  height: 80px;
+}
+
+.nav li {
+  color: black;
+  font-size: 14pt;
+  padding: 15px 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav li a:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+.nav-logo {
+  display: block;
+  float: left;
+  /* Uncomment the line below to put the company name at the same height as the rest of the page links! */
+  /* margin-top: 30px; */
+}
+
+.nav-links {
+  float: right;
+  margin-top: 30px;
+}
+
+/* 1. HOME SECTION */
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 60pt;
+  margin-top: 10%;
+}
+
+.home-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* 2. MISSION SECTION */
+.section2 {
+  display: flex; 
+  align-items: center;
+  justify-content: space-between; 
+  height: 80%;
+  padding: 5% 30%;
+}
+
+.section2-text {
+  flex: 1; 
+  min-width: 500px;
+  margin-right: 20px;
+}
+
+.section2-image {
+  flex: 0 0 auto; 
+}
+
+.section2 img {
+  width: 25%; 
+  max-width: 500px; 
+  height: auto;
+}
+
+
+/* 3. STATS SECTION */
+
+.section3 {
+  display: block;
+  padding: 5% 30% 10% 30%;
+}
+
+.section3 img {
+  margin: 35px 10px;
+}
+
+/* 4. SUPPORT SECTION */
+
+.section4 {
+  padding: 5% 30% 10% 30%;
+}
+
+.section4-text ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;
+}
+
+.section4-text ul li p:first-of-type {
+  font-weight: bold;
+  font-size: 16pt;
+}
+
+/* ABOUT SECTION */
+
+.section5 {
+  display: block;
+  margin: 0 10%;
+  padding-top: 5%;
+}
+
+.cards {
+  display: inline-flex;
+}
+
+.card {
+  margin: 25px
+}
+
+#map {
+  height: 100%;
+}
+
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Bin Guide | Find Nearest Store</title>
+
+  <link href="style.css" rel="stylesheet" type="text/css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <script>
+    const stores = [
+    {name: "Alki Lumber & Hardware", address: "4422 36th Ave SW, Seattle, WA 98126", location: {lat: 47.5645, lng: -122.3762}, brands: ["Bag-to-Nature"]},
+    {name: "Bed, Bath & Beyond", address: "2100 1st Ave, Seattle, WA 98121", location: {lat: 47.6117, lng: -122.3406}, brands: ["BioBag"]},
+    {name: "Bed, Bath & Beyond", address: "2201 1st Ave, Seattle, WA 98121", location: {lat: 47.6127, lng: -122.3419}, brands: ["BioBag"]},
+    {name: "Bed, Bath & Beyond", address: "4750 1st Ave S, Seattle, WA 98134", location: {lat: 47.5222, lng: -122.3650}, brands: ["BioBag"]},
+    {name: "Bed, Bath & Beyond", address: "17522 15th Ave NE, Shoreline, WA 98155", location: {lat: 47.7079, lng: -122.3244}, brands: ["BioBag"]},
+    {name: "QFC", address: "500 Mercer St, Seattle, WA 98109", location: {lat: 47.6225, lng: -122.3129}, brands: ["BioBag"]},
+    {name: "QFC", address: "417 Broadway E, Seattle, WA 98102", location: {lat: 47.6616, lng: -122.3362}, brands: ["BioBag"]},
+    {name: "QFC", address: "2746 NE 45th St, Seattle, WA 98105", location: {lat: 47.6702, lng: -122.3874}, brands: ["BioBag"]},
+    {name: "QFC", address: "2746 NE 45th St, Seattle, WA 98105", location: {lat: 47.6775, lng: -122.3174}, brands: ["BioBag"]},
+    {name: "QFC", address: "1531 NE 145th St, Seattle, WA 98155", location: {lat: 47.6897, lng: -122.2911}, brands: ["BioBag"]},
+    {name: "QFC", address: "990 E Madison St, Seattle, WA 98112", location: {lat: 47.6920, lng: -122.3776}, brands: ["BioBag"]},
+    {name: "QFC", address: "2500 SW Barton St, Seattle, WA 98126", location: {lat: 47.6992, lng: -122.3628}, brands: ["BioBag"]},
+    {name: "QFC", address: "1401 Broadway, Seattle, WA 98122", location: {lat: 47.6484, lng: -122.3789}, brands: ["BioBag"]},
+    {name: "QFC", address: "417 NE 45th St, Seattle, WA 98105", location: {lat: 47.6140, lng: -122.3206}, brands: ["BioBag"]},
+    {name: "QFC", address: "11100 Roosevelt Way NE, Seattle, WA 98125", location: {lat: 47.7185, lng: -122.2966}, brands: ["BioBag"]},
+    {name: "QFC", address: "8400 35th Ave NE, Seattle, WA 98115", location: {lat: 47.7068, lng: -122.3179}, brands: ["BioBag"]},
+    {name: "QFC", address: "990 E Madison St, Seattle, WA 98112", location: {lat: 47.5219, lng: -122.3644}, brands: ["BioBag"]},
+    {name: "QFC", address: "2746 NE 45th St, Seattle, WA 98105", location: {lat: 47.5804, lng: -122.3015}, brands: ["BioBag"]},
+    {name: "QFC", address: "15215 127th Pl NE, Kirkland, WA 98034", location: {lat: 47.4580, lng: -122.3347}, brands: ["BioBag"]},
+    {name: "QFC", address: "990 E Madison St, Seattle, WA 98112", location: {lat: 47.7336, lng: -122.3129}, brands: ["BioBag"]},
+    {name: "QFC", address: "4500 40th Ave SW, Seattle, WA 98116", location: {lat: 47.6619, lng: -122.2933}, brands: ["BioBag"]},
+    {name: "QFC", address: "1401 Broadway, Seattle, WA 98122", location: {lat: 47.6228, lng: -122.3212}, brands: ["BioBag"]},
+    {name: "QFC", address: "2755 California Ave SW, Seattle, WA 98116", location: {lat: 47.6246, lng: -122.3491}, brands: ["BioBag"]},
+    {name: "Ballard Market", address: "1400 NW 56th St, Seattle, WA 98107", location: {lat: 47.6685, lng: -122.3761}, brands: ["EcoSafe", "BioBag"]},
+    {name: "Bartell Drugs", address: "910 NW Market St, Seattle, WA 98107", location: {lat: 47.6683, lng: -122.3831}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "5700 24th Ave NW, Seattle, WA 98107", location: {lat: 47.6691, lng: -122.3847}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "910 NW Market St, Seattle, WA 98107", location: {lat: 47.6139, lng: -122.3205}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "1001 Mercer St, Seattle, WA 98109", location: {lat: 47.6099, lng: -122.3273}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "1001 Mercer St, Seattle, WA 98109", location: {lat: 47.6090, lng: -122.3365}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "910 NW Market St, Seattle, WA 98107", location: {lat: 47.6050, lng: -122.3331}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "1501 E Madison St, Seattle, WA 98122", location: {lat: 47.6121, lng: -122.3354}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "2222 32nd Ave W, Seattle, WA 98199", location: {lat: 47.6906, lng: -122.3573}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "910 NW Market St, Seattle, WA 98107", location: {lat: 47.7190, lng: -122.2951}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "910 NW Market St, Seattle, WA 98107", location: {lat: 47.6380, lng: -122.3980}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "2700 NW Market St, Seattle, WA 98107", location: {lat: 47.6370, lng: -122.3566}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "911 NW Market St, Seattle, WA 98107", location: {lat: 47.6235, lng: -122.3552}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "1601 9th Ave, Seattle, WA 98101", location: {lat: 47.5815, lng: -122.3007}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "9701 Sand Point Way NE, Seattle, WA 98115", location: {lat: 47.6752, lng: -122.3166}, brands: ["BioBag"]},
+    {name: "Bartell Drugs", address: "1500 NW Market St, Seattle, WA 98107", location: {lat: 47.6608, lng: -122.3133}, brands: ["BioBag"]},
+      ]
+    
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+      lat1 = lat1 * Math.PI / 180;
+      lon1 = lng1 * Math.PI / 180;
+      lat2 = lat2 * Math.PI / 180;
+      lon2 = lng2 * Math.PI / 180;
+      const distance = Math.acos(
+        Math.sin(lat1) * Math.sin(lat2) +
+        Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1)
+      ) * 6371; 
+      return distance;
+    }
+
+    function findNearestStore(userLocation) {
+      let nearestStore = null;
+      let shortestDistance = 209320202993; 
+
+      stores.forEach(store => {
+        const distance = calculateDistance(userLocation.lat, userLocation.lng, store.location.lat, store.location.lng);
+        if (distance < shortestDistance) {
+          shortestDistance = distance;
+          nearestStore = store;
+        }
+      });
+
+      return { store: nearestStore, distance: shortestDistance };
+    }
+
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showNearestStore, showError);
+      } else {
+        document.getElementById("output").innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showNearestStore(position) {
+      const userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+      const result = findNearestStore(userLocation);
+
+      if (result.store) {
+        document.getElementById("output").innerHTML = `
+          Nearest store: <strong>${result.store.name}</strong><br>
+          Address: ${result.store.address}<br> <!-- Corrected this line -->
+          Distance: ${result.distance.toFixed(2)} km<br>
+          Available brands: ${result.store.brands.join(', ')}
+        `;
+      } else {
+        document.getElementById("output").innerHTML = "No stores found.";
+      }
+    }
+
+    function showError(error) {
+      const outputElement = document.getElementById("output");
+
+      if (error.code === error.PERMISSION_DENIED) {
+        outputElement.innerHTML = "User denied the request for Geolocation.";
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        outputElement.innerHTML = "Location information is unavailable.";
+      } else if (error.code === error.TIMEOUT) {
+        outputElement.innerHTML = "The request to get user location timed out.";
+      } else if (error.code === error.UNKNOWN_ERROR) {
+        outputElement.innerHTML = "An unknown error occurred.";
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <ul class="nav">
+    <div class="nav-logo">
+      <li><a href="./index.html">GREEN BIN GUIDE<br></a></li>
+    </div>
+    <div class="nav-links">
+      <li><a href="./mission.html">Mission</a></li>
+      <li><a href="./stats.html">Compost Bags</a></li>
+      <li><a href="./support.html">Sorting Game</a></li>
+      <li><a href="./about.html">About</a></li>
+    </div>
+  </ul>
+
+  <div class="section5">
+    <h2>Find Nearest Store for Compostable Bags</h2>
+    <div class="cards">
+      <button onclick="getUserLocation()">Find Nearest Store</button>
+      <p id="output"></p>
+    </div>
+  </div>
+
+</body>
+
+</html>
